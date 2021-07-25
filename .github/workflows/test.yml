@@ -1,12 +1,12 @@
   # Based on https://medium.com/swlh/auto-deploy-vue-js-to-github-pages-using-actions-723a2206e4d3 
   name: Deploy to Github Pages
   on:
-    push:
+    pull_request:
       branches:
         - master
   jobs:
     lint:
-      name: Linting
+      name: lint
       runs-on: ubuntu-latest
       steps:
           - uses: actions/checkout@v2
@@ -15,8 +15,8 @@
               node-version: '12'
           - run: yarn install
           - run: yarn lint
-    deploy-gh-pages:
-      name: Deploying to Github Pages
+    test:
+      name: test
       runs-on: ubuntu-latest
       steps:
           - uses: actions/checkout@v2
@@ -24,5 +24,4 @@
             with:
               node-version: '12'
           - run: yarn install
-          - run: git config user.name "<username>" && git config user.email "<email>"
-          - run: yarn deploy
+          - run: echo yarn test
